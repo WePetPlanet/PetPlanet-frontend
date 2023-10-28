@@ -1,0 +1,3 @@
+// 注意规范变量以 $ 开头
+// 导入的 SCSS 全局变量在 TypeScript 不生效的，需要创建一个以 .module.scss 结尾的文件
+$bg-color:#dd2222;

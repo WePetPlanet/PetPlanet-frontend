@@ -1,10 +1,23 @@
 // src/router/index.ts
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
-
+const Detail = () => import('@/components/home/listDisplay.vue');
 // 静态路由
 export const constantRoutes: RouteRecordRaw[] = [
-
+  {
+    path: "/home",
+    component: () => import("@/views/home/home.vue"),
+    meta: { hidden: true },
+    children: [
+      {
+        path: 'listCard',
+        component: Detail,
+        meta: {
+            title: '帖子展示',
+        },
+      },
+    ]
+  },
 ];
 
 /**

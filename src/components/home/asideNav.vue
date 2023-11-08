@@ -1,5 +1,5 @@
 <template>
-    <nav class="menu" :class="{ open: isMenuOpen }">
+    <nav class="menu">
         <el-tooltip effect="dark" content="切换菜单样式" placement="right">
             <div class="actionsBar">
                 <div>
@@ -11,17 +11,17 @@
         <ul class="optionsBar">
             <li class="menuItem">
                 <el-tooltip effect="dark" content="主页" placement="right">
-                    <routerLink to="/home/listCard" class="menuOption">
+                    <RouterLink to="/home/listCard" class="menuOption">
                         <svg-icon class="iconfont" icon-class="home" style="color: #000;"></svg-icon>
-                        <h5 class="menuText" :class="{ open2: isMenuOpen }">主页</h5>
-                    </routerLink>
+                        <h5 class="menuText open2" >主页</h5>
+                    </RouterLink>
                 </el-tooltip>
             </li>
             <li class="menuItem">
                 <el-tooltip effect="dark" content="发布内容" placement="right">
                     <RouterLink to="/" class="menuOption">
                         <svg-icon class="iconfont" icon-class="airplant"></svg-icon>
-                        <h5 class="menuText" :class="{ open2: isMenuOpen }">发布内容</h5>
+                        <h5 class="menuText open2">发布内容</h5>
                     </RouterLink>
                 </el-tooltip>
             </li>
@@ -29,20 +29,23 @@
                 <el-tooltip effect="dark" content="通知" placement="right">
                     <RouterLink to="/" class="menuOption">
                         <svg-icon class="iconfont" icon-class="informer"></svg-icon>
-                        <h5 class="menuText" :class="{ open2: isMenuOpen }">通知</h5>
+                        <h5 class="menuText open2">通知</h5>
                     </RouterLink>
                 </el-tooltip>
             </li>
-            <div class="loginButton" v-show="isMenuOpen">
+            <div class="loginButton">
                 <el-button type="danger" style="width:80%" round><h4>登录</h4></el-button>
             </div>
         </ul>
     </nav>
 </template>
 <script setup lang='ts'>
+const emit = defineEmits(['sendMenuOpen'])
 const isMenuOpen = ref(false)
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
+    let flag = isMenuOpen
+    emit('sendMenuOpen',flag)
 }
 </script>
 <style scoped lang='scss'>
@@ -51,7 +54,7 @@ const toggleMenu = () => {
 }
 .menu {
     position: absolute;
-    width: 60px;
+    width: 220px;
     background-color: #F5F7F8;
     z-index: 2;
     top: 80px;
@@ -174,7 +177,7 @@ const toggleMenu = () => {
 }
 
 .menu.open {
-    width: 240px;
+    width: 15%;
     opacity: 0.9;
 }
 

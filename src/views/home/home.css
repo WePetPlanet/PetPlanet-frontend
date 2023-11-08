@@ -1,12 +1,10 @@
 .main {
     position: relative;
+    height: 100%;
 }
 
 .main-head {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,6 +19,9 @@
     align-items: center;
 }
 .maxSize {
-    width: auto;
-    margin-top: 80px;
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+.maxSize.shifted {
+    margin-left: 70px;
 }

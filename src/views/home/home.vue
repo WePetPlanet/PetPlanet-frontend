@@ -16,8 +16,8 @@
             </div>
         </div>
         <el-container style="padding: 0 16px 0 24px;">
-            <el-aside width="80px">
-                <aside-nav />
+            <el-aside width="240px">
+                <aside-nav @sendMenuOpen="getMenuOpen"/>
             </el-aside>
             <el-main class="maxSize" id="content">
                 <RouterView />
@@ -31,6 +31,11 @@ import { Search } from '@element-plus/icons-vue'
 const fit = 'cover'
 const url = 'src/assets/images/petHead.png'
 const searchInput = ref('')
+let ismaxSize = ref(false)
+const getMenuOpen = (isMenuOpen:any) => {
+  ismaxSize.value = isMenuOpen.value
+  console.log(isMenuOpen.value)
+}
 </script>
 <!-- <style scoped lang='scss'>
 .main {

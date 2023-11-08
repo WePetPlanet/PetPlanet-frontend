@@ -5,9 +5,5 @@
 
 </script>
 <style scoped lang='scss'>
-html,
-body,
-#app {
-  height: 100%;
-}
+
 </style>

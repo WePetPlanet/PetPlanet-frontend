@@ -1,5 +1,5 @@
 <template>
-    <Waterfall :list="imgsArrList">
+    <Waterfall :list="imgsArrList" :breakpoints="breakpoints">
             <template #item="{ item,url }">
                 <div class="card">
                     <LazyImg :url="url" />
@@ -115,6 +115,21 @@ let imgsArrList = [
   }
 ]
 let group = 0
+const breakpoints = reactive(
+  {
+  1200: {
+    // when wrapper width < 1200
+    rowPerView: 5,
+  },
+  800: {
+    // when wrapper width < 800
+    rowPerView: 4,
+  },
+  500: {
+    // when wrapper width < 500
+    rowPerView: 3,
+  },
+})
 function getData() {
     axios.get('http://127.0.0.1:5173/static/mock/data.json?group=' + group)
         .then(res => {

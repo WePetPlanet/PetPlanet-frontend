@@ -1,19 +1,25 @@
 <template>
-    <Waterfall :list="imgsArrList" :breakpoints="breakpoints">
-            <template #item="{ item,url }">
-                <div class="card">
+  <Waterfall :list="imgsArrList" :breakpoints="breakpoints">
+    <template #item="{ item, url }">
+      <!-- <div class="card">
                     <LazyImg :url="url" />
                     <p class="text">{{ item.info }}</p>
-                </div>
-            </template>
-        </Waterfall>
+                </div> -->
+      <el-card :body-style="{ padding: '0px' }" class="box-card">
+        <LazyImg :url="url"  class="img-card"/>
+        <div style="padding: 14px">
+          <p class="text">{{ item.info }}</p>
+        </div>
+      </el-card>
+    </template>
+  </Waterfall>
 </template>
 <script setup lang='ts'>
 import axios from 'axios';
 import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next'
 import 'vue-waterfall-plugin-next/dist/style.css'
 let imgsArrList = [
-{
+  {
     "src": "./static/img/1.jpg",
     "href": "https://www.baidu.com",
     "info": "一些图片描述文字"
@@ -115,37 +121,51 @@ let imgsArrList = [
   }
 ]
 let group = 0
+const a = {
+  node: '',
+  title: ''
+}
+const nodeA = ref({...a})
+
+console.log(nodeA.value)
 const breakpoints = reactive(
   {
-  1200: {
-    // when wrapper width < 1200
-    rowPerView: 5,
-  },
-  800: {
-    // when wrapper width < 800
-    rowPerView: 4,
-  },
-  500: {
-    // when wrapper width < 500
-    rowPerView: 3,
-  },
-})
+    1200: {
+      // when wrapper width < 1200
+      rowPerView: 5,
+    },
+    800: {
+      // when wrapper width < 800
+      rowPerView: 4,
+    },
+    500: {
+      // when wrapper width < 500
+      rowPerView: 3,
+    },
+  })
 function getData() {
-    axios.get('http://127.0.0.1:5173/static/mock/data.json?group=' + group)
-        .then(res => {
-            imgsArrList = imgsArrList.concat(res.data);
-            group++;
-        })
-        console.log(imgsArrList)
+  axios.get('http://127.0.0.1:5173/static/mock/data.json?group=' + group)
+    .then(res => {
+      imgsArrList = imgsArrList.concat(res.data);
+      group++;
+    })
+  console.log(imgsArrList)
 }
 onMounted(() => {
-    getData()
+  getData()
 })
 </script>
 <style scoped lang='scss'>
 .card-main {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.box-card {
+  border-radius:20px 20px 0 0;
+  margin: 0 5px 0 5px;
+}
+.img-card {
+  border-radius:20px;
 }
 </style>

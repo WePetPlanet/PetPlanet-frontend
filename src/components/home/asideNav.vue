@@ -19,7 +19,7 @@
             </li>
             <li class="menuItem">
                 <el-tooltip effect="dark" content="发布内容" placement="right">
-                    <RouterLink to="/" class="menuOption">
+                    <RouterLink to="/publish" class="menuOption">
                         <svg-icon class="iconfont" icon-class="airplant"></svg-icon>
                         <h5 class="menuText open2">发布内容</h5>
                     </RouterLink>

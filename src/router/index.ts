@@ -18,6 +18,11 @@ export const constantRoutes: RouteRecordRaw[] = [
       },
     ]
   },
+  {
+    path: "/publish",
+    component: () => import("@/views/publish/publish.vue"),
+    meta: {hidden: true}
+  }
 ];
 
 /**

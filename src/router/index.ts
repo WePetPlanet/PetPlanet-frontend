@@ -5,6 +5,10 @@ const Detail = () => import('@/components/home/listDisplay.vue');
 // 静态路由
 export const constantRoutes: RouteRecordRaw[] = [
   {
+    path: "/",
+    component: () => import("@/views/login/login.vue")
+  },
+  {
     path: "/home",
     component: () => import("@/views/home/home.vue"),
     meta: { hidden: true },
@@ -21,7 +25,17 @@ export const constantRoutes: RouteRecordRaw[] = [
   {
     path: "/publish",
     component: () => import("@/views/publish/publish.vue"),
-    meta: {hidden: true}
+    meta: {hidden: true},
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/publish/user/user.vue")
+      },
+      {
+        path: "edit",
+        component: () => import("@/views/publish/edit/edit.vue")
+      }
+    ]
   }
 ];
 

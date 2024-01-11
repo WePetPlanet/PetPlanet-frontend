@@ -42,6 +42,7 @@ import $ from "jquery";
 import "@/views/home/home.css";
 import { Search } from "@element-plus/icons-vue";
 import { log } from "console";
+import axios from "axios";
 const fit = "cover";
 const url = "src/assets/images/petHead.png";
 const searchInput = ref("");
@@ -55,6 +56,17 @@ const getMenuOpen = (isMenuOpen: any) => {
 // 获取当前浏览器地理位置
 
 onMounted(() => {
+  console.log(localStorage.getItem("Authorization"))
+  axios({
+    method: 'get',
+    url: "/petplanet-pet/hello",
+    headers:{'Authorization':localStorage.getItem("Authorization")}
+  }).then(res => {
+    console.log("测试微服务调用")
+      console.log(res)
+  })
+
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {

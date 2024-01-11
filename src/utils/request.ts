@@ -3,29 +3,30 @@ import qs from 'qs'
 import { setLocalStorage, getLocalStorage } from './localstorage'
 import { BASE_URL, TIMEOUT, SOURCE_URL } from "@/config";
 import { ElMessage } from 'element-plus';
-const instance = axios.create({
-    baseURL: BASE_URL,
-    timeout: TIMEOUT,
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-})
+// const instance = axios.create({
+//     baseURL: BASE_URL,
+//     timeout: TIMEOUT,
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     }
+// })
 // http request 请求拦截器
-instance.interceptors.request.use(
+axios.interceptors.request.use(
     config => {
-        config.headers.AcceptLanguage = getLocalStorage("locale");
-        if (localStorage.myToken) {
-            config.headers.Authorization = getLocalStorage("myToken");
+        config.headers.AcceptLanguage = localStorage.getItem("locale");
+        console.log(localStorage.getItem("Authorization"));
+        if (localStorage.getItem("Authorization")) {
+            config.headers.Authorization = localStorage.getItem("Authorization");
         }
-        return config
+        return config;
     },
     err => {
-        return Promise.reject(err)
+        return Promise.reject(err);
     }
-)
+);
 // http response 响应拦截器
-instance.interceptors.response.use(
+axios.interceptors.response.use(
     response => {
         return handleData(response.data)
     },

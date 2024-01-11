@@ -10,8 +10,8 @@
                 <el-tabs v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="密码登录" name="first">
                         <!--登录表单-->
-                        <el-form-item prop="tel">
-                            <el-input v-model="loginForm.tel" prop="tel" prefix-icon="el-icon-user-solid" placeholder="账号"></el-input>
+                        <el-form-item prop="username">
+                            <el-input v-model="loginForm.username" prop="username" prefix-icon="el-icon-user-solid" placeholder="账号"></el-input>
                         </el-form-item>
 
                         <el-form-item prop="password">
@@ -146,6 +146,9 @@
 </template>
 
 <script>
+import { ElNotification } from 'element-plus'
+import axios from "axios";
+import {setLocalStorage} from "../../utils/localstorage.ts";
     //验证手机号规则
     const checkMobile = (rule,value,cb)=>{
         // 手机号验证正则表达式
@@ -159,9 +162,9 @@
         data(){
             return{
                 editForm:{
-                    name:'',
+                    username:'admin',
                     tel:'',
-                    password:'',
+                    password:'admin',
                     introduce:'',
                     legalperson:'',
                     fund:'',
@@ -187,7 +190,7 @@
                 registerFormTelCode:{tel:'',code:''},
                 //这是登录表单的数据绑定对象
                 // loginForm:{tel:'15993026554', password:'123456'},
-                loginForm:{tel:'niuzy', password:'123456'},
+                loginForm:{username:'admin', password:'123456'},
                 //表单验证
                 loginRules:{
                     tel:[
@@ -268,7 +271,33 @@
                 this.$refs.loginRef.resetFields();
             },
             login(){
-              this.$router.push("/home")
+              //登录逻辑
+              axios({
+                method: 'post',
+                url: 'auth/login/',
+                data: this.loginForm,
+                //json不能用
+                headers:{'Content-Type':"application/x-www-form-urlencoded"}
+              }).then(res => {
+                if(res.data.code === 200) {
+                  if(res.data.msg === "成功") {
+                    localStorage.setItem("Authorization", res.data.data.token)
+
+                    console.log("设置token到localStorage")
+                    //登陆成功
+                    ElNotification({
+                      title: 'Success',
+                      message: '登录成功',
+                      type: 'success',
+                    })
+                    //跳转到home
+                    this.$router.push("/home")
+                  }
+                }
+                console.log(res)
+              })
+
+
 
             },
             register(){
